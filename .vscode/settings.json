@@ -1,0 +1,43 @@
+{
+    "Lua.runtime.version": "Lua 5.1",
+    "Lua.runtime.builtin": {
+        "basic": "disable",
+        "debug": "disable",
+        "io": "disable",
+        "math": "disable",
+        "os": "disable",
+        "package": "disable",
+        "string": "disable",
+        "table": "disable",
+        "utf8": "disable"
+    },
+    "Lua.workspace.library": [
+        "~\\.vscode\\extensions\\ketho.wow-api-0.17.6\\Annotations"
+    ],
+    "Lua.diagnostics.globals": [
+        "AuctionHouseFrame",
+        "StaticPopup1Button1",
+        "AuctionHouseFrameAuctionsFrame",
+        "FrameUtil",
+        "message",
+        "AuctionHouseFrameMixin",
+        "AuctionHouseUtil",
+        "AuctionHouseCommoditiesBuyListMixin",
+        "AuctionHouseCommoditiesBuyDisplayMixin",
+        "DEFAULT_CHAT_FRAME",
+        "TablesAPIMixin",
+        "FunctionsAPIMixin",
+        "EventsAPIMixin",
+        "FieldsAPIMixin",
+        "SystemsAPIMixin",
+        "ChatFrame_OpenChat",
+        "ChatTypeInfo",
+        "LE_SCRIPT_BINDING_TYPE_INTRINSIC_POSTCALL",
+        "Event",
+        "SlashCmdList",
+        "DevTool",
+        "AuctionHouseCommoditiesListMixin",
+        "AuctionHouseItemListMixin",
+        "EnumUtil"
+    ]
+}
