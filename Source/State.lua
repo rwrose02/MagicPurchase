@@ -1,7 +1,7 @@
 ---@class ns
 local ns = select(2, ...)
 
-ns.def_safe_price = 1*100*100
+ns.def_safe_price = 1 * 100 * 100
 ns.currentItemId = nil
 ns.safe_table = ns.safe_table or {}
 ns.util = {}

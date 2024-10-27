@@ -1,21 +1,29 @@
 ---@class ns
 local ns = select(2, ...)
-AHFrame = {
+
+---@class AHFrame
+local AHFrame = {
     AuctionHouseFrame = nil
 }
-function AHFrame:_AHFrame()
+---Get Auction House Frame
+---@return Frame?
+function AHFrame:AHFrame()
     return AuctionHouseFrame
 end
-function AHFrame:_CommodityFrame()
+
+---Get Commodity Frame
+---@return Frame?
+function AHFrame:CommodityFrame()
     return AuctionHouseFrame.CommoditySellFrame
 end
-function AHFrame:_check_frame()
-    if not self.AuctionHouseFrame then
-        self.AuctionHouseFrame = self:_AHFrame()
-    end
-end
+
+---Get Commodity ID
+---@return integer? -- itemID
 function AHFrame:CommodityID()
-    if AuctionHouseFrame.CommodityBuyFrame and AuctionHouseFrame.CommodityBuyFrame:IsShown() then
+    if self:CommodityFrame() then
         return AuctionHouseFrame.CommodityBuyFrame:GetItem()
     end
 end
+
+---@class AHFrame
+ns.AHFrame = AHFrame
