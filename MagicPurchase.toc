@@ -6,11 +6,17 @@
 ## SavedVariables: Magic_SavedVars
 
 SavedVars.lua
+
+Source\Mixins\StateManager.lua
 Source\State.lua
 
-Source\Setup\Binding.lua
 Source\Util\UtilityFuncs.lua
 Source\Util\PurchaseHelper.lua
 
+Source\Modules\SafePriceFrame.lua
 Source\Modules\PurchaseFrame.lua
+Source\Modules\ResultsMonitorFrame.lua
+Source\Modules\ExposedMacro.lua
+
 Source\Core.lua
+Source\Setup\Binding.lua

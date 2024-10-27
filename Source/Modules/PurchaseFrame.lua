@@ -61,7 +61,10 @@ function PurchaseFrame.new()
     -- Close Button
     local closeButton = CreateFrame("Button", nil, frame, "UIPanelCloseButton")
     closeButton:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, 0)
-
+    local safePriceButton = CreateFrame("Button", "nil", frame, "UIPanelButtonTemplate")
+    safePriceButton:SetSize(80, 25)
+    safePriceButton:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 25)
+    safePriceButton:SetText("Safe Price")
     -- Store references
     self.frame = frame
     self.itemInfo = itemInfo
@@ -74,46 +77,63 @@ function PurchaseFrame.new()
     setupButton:SetScript("OnClick", function() self:OnSetupClick() end)
     confirmButton:SetScript("OnClick", function() self:OnConfirmClick() end)
     closeButton:SetScript("OnClick", function() frame:Hide() end)
+    self.frame:HookScript("OnUpdate", function() self:UpdateDisplay() end)
 
     return self
 end
 
 function PurchaseFrame:UpdateDisplay()
-    if not ns.currentItemId then
+    if not ns.currentItemId:getValue() then
         self.itemInfo:SetText("No Item Selected")
         return
     end
 
-    local itemLink = ns.currentItemId -- assuming this is already an itemLink
-    local quantity = ns.tqb
-    local maxPrice = ns.safe_table[ns.currentItemId]
-
+    local itemLink = ns.currentItemId:getValue() -- assuming this is already an itemLink
+    local quantity = ns.tqb:getValue()
+    local maxPrice = ns.safe_price:getValue()
     self.itemInfo:SetText(itemLink)
     self.quantityText:SetText(string.format("Quantity: %d", quantity))
     self.priceText:SetText(string.format("Max Price: %dg", maxPrice and maxPrice / 10000 or 0))
 end
-
 function PurchaseFrame:OnSetupClick()
-    if not ns.currentItemId or not ns.tqb or not ns.safe_table[ns.currentItemId] then
-        print("Missing required purchase information")
+    local itemLink = ns.util.GetCurrentItemID()
+    local id_set = ns.currentItemId:setValue(itemLink)
+    local price_set = ns.safe_price:setValue(ns.safe_table[ns.currentItemId:getValue()])
+    if (not id_set or not price_set) then
+        print("Missing required search information")
         return
     end
-    C_AuctionHouse.RefreshCommoditySearchResults(ns.currentItemId)
     self:UpdateDisplay()
+    -- wait for the results to be updated
+    -- yield to results frame
+
+    if not ns.ResultMonitor then
+        ns.ResultMonitor = ns.CreateResultsMonitor()
+    end
+    ns.ResultMonitor:ListenForEvents()
+    -- refresh the commodity search results
+    C_AuctionHouse.RefreshCommoditySearchResults(ns.currentItemId:getValue())
+    C_Timer.After(1, function()
+        print("killed: q", ns.ResultMonitor.TotalQuantity)
+        ns.ResultMonitor:reset_state()
+        self:UpdateDisplay()
+    end)
+    if ns.tqb == -1 then
+        print("Error aggregating search results")
+    end
     self.confirmButton:Enable()
 end
-
 function PurchaseFrame:OnConfirmClick()
-    local itemId = ns.currentItemId
-    local quantity = ns.tqb
-    local maxPrice = ns.safe_table[itemId]
+    ns.currentItemId:getValue()
+    ns.tqb:getValue()
+    ns.safe_price:getValue()
 
-    if not itemId or not quantity or not maxPrice then
+    if not ns.currentItemId:getValue() or not ns.tqb:getValue() or not ns.safe_price:getValue() then
         print("Missing required purchase information")
         return
     end
 
-    ns.InitiatePurchase(itemId, quantity, maxPrice)
+    ns.InitiatePurchase(ns.currentItemId:getValue(), ns.tqb:getValue(), ns.safe_price:getValue())
 end
 
 -- Create and initialize the frame

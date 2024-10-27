@@ -1,4 +1,6 @@
 <!-- Bindings.xml -->
 <Bindings>
+    <Binding name="CLICK MagicRefreshButton:LeftButton" category="ADDONS"/>
+    <Binding name="CLICK MagicFavButton:LeftButton" category="ADDONS"/>
 </Bindings>
   

@@ -38,6 +38,8 @@
         "DevTool",
         "AuctionHouseCommoditiesListMixin",
         "AuctionHouseItemListMixin",
-        "EnumUtil"
+        "EnumUtil",
+        "assertsafe",
+        "ExecuteFrameScript"
     ]
 }

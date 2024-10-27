@@ -24,6 +24,13 @@ function AHFrame:CommodityID()
         return AuctionHouseFrame.CommodityBuyFrame:GetItem()
     end
 end
-
----@class AHFrame
+function AHFrame:clickFavoriteButton()
+    local ahf = AuctionHouseFrame
+    local searchBar = ahf.searchBar
+    if searchBar and searchBar.FavoritesSearchButton and searchBar.FavoritesSearchButton:IsVisible() then
+        searchBar.FavoritesSearchButton:Click()
+        return true
+    end
+    return false
+end
 ns.AHFrame = AHFrame
