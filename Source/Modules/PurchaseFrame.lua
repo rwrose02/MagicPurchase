@@ -113,11 +113,11 @@ function PurchaseFrame:OnSetupClick()
     ns.ResultMonitor:ListenForEvents()
     -- refresh the commodity search results
     C_AuctionHouse.RefreshCommoditySearchResults(ns.currentItemId:getValue())
-    C_Timer.After(1, function()
-        print("killed: q", ns.ResultMonitor.TotalQuantity)
-        ns.ResultMonitor:reset_state()
-        self:UpdateDisplay()
-    end)
+    -- C_Timer.After(1, function()
+    --     print("killed: q", ns.ResultMonitor.TotalQuantity)
+    --     ns.ResultMonitor:reset_state()
+    --     self:UpdateDisplay()
+    -- end)
     if ns.tqb == -1 then
         print("Error aggregating search results")
     end

@@ -20,6 +20,7 @@ local pendingPurchase = {
 
 -- Register for relevant events
 priceUpdateFrame:RegisterEvent("COMMODITY_PRICE_UPDATED")
+priceUpdateFrame:RegisterEvent("COMMODITY_PRICE_UNAVAILABLE")
 priceUpdateFrame:RegisterEvent("COMMODITY_PURCHASE_SUCCEEDED")
 priceUpdateFrame:RegisterEvent("COMMODITY_PURCHASE_FAILED")
 
@@ -39,8 +40,9 @@ local function PriceHandler(self, event, ...)
 
             if unitPrice <= pendingPurchase.maxPrice then
                 pendingPurchase.waitingForUpdate = false
-                C_AuctionHouse.ConfirmCommoditiesPurchase(pendingPurchase.itemID, pendingPurchase.quantity)
-                
+                C_Timer.After(0.1, function()
+                    C_AuctionHouse.ConfirmCommoditiesPurchase(pendingPurchase.itemID, pendingPurchase.quantity)
+                end)
                 if ns.debug then print("Price acceptable, confirming purchase") end
             else
                 if ns.debug then print("Price too high, cancelling purchase") end
@@ -76,6 +78,16 @@ local function PriceHandler(self, event, ...)
         ns.currentItemId:unlock()
         ns.tqb:unlock()
         ns.safe_price:unlock()
+    elseif event == "COMMODITY_PRICE_UNAVAILABLE" then
+        if ns.debug then print("Price unavailable for item: ") end
+        -- Reset pending purchase state
+        pendingPurchase.waitingForUpdate = false
+        pendingPurchase.itemID = nil
+        pendingPurchase.quantity = nil
+        pendingPurchase.maxPrice = nil
+        ns.currentItemId:unlock()
+        ns.tqb:unlock()
+        ns.safe_price:unlock()
     end
 end
 
@@ -93,6 +105,7 @@ function ns.AttemptCommodityPurchase(itemID, quantity, maxPrice)
     pendingPurchase.quantity = quantity
     pendingPurchase.maxPrice = maxPrice
     pendingPurchase.waitingForUpdate = true
+    pendingPurchase.waitingThrottleState = false
     ns.currentItemId:lock()
     ns.tqb:lock()
     ns.safe_price:lock()

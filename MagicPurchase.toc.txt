@@ -1,3 +1,4 @@
+### DUMMY COPY OF TOC FILE IN TXT FORMAT
 ## Interface: 110002
 ## Title: MagicPurchase
 ## Version: 1.0

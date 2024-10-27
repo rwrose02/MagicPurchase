@@ -24,11 +24,9 @@ function ns.CreateResultsMonitor()
     end
     function events:COMMODITY_SEARCH_RESULTS_RECEIVED()
         if ns.debug_table.results_frame == true then print("pm: COMMODITY_SEARCH_RESULTS_RECIEVED " .. GetTime()) end
-        ns.tqb:lock()
         local totalQuantity = ns.util.AggregateCommoditySearchResultsByMaxPrice(ns.currentItemId:getValue(),ns.safe_price:getValue())
-        ns.tqb:unlock()
         local set_tqb = ns.tqb:setValue(totalQuantity)
-        print("Total Quantity: " .. totalQuantity)
+        -- print("Total Quantity: " .. totalQuantity)
         if not set_tqb then
             if ns.debug_table.results_frame == true then print("setting ns.tqb failed") end
         else
