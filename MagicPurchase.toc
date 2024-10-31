@@ -15,8 +15,8 @@ Source\Util\PurchaseHelper.lua
 Source\Util\AHFrameUtil.lua
 
 Source\Modules\SafePriceFrame.lua
-Source\Modules\PurchaseFrame.lua
-Source\Modules\ResultsMonitorFrame.lua
+Source\Class\ResultsMonitorClass.lua
+Source\Class\PurchaseFrameClass.lua
 Source\Modules\ExposedMacro.lua
 
 Source\Core.lua

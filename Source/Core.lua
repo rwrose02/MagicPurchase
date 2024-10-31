@@ -8,7 +8,7 @@ function events:ADDON_LOADED(addon)
     end
 end
 function events:PLAYER_ENTERING_WORLD(...)
-    if ns.debug == true then DevTool:AddData(ns, "ns") end
+    -- if ns.debug == true then DevTool:AddData(ns, "ns") end
     
 end
 function events:PLAYER_LEAVING_WORLD(...)
