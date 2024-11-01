@@ -14,6 +14,7 @@ ns.safe_price = safe_price
 ns.safe_table = ns.safe_table or {}
 ns.util = {}
 ns.tqk = 1
+ns.Trace = true -- module control
 ns.debug = true
 --TODO: Refine debug_table to function on module basis 
 ns.debug_table = {

@@ -17,7 +17,6 @@ local pendingPurchase = {
     maxPrice = nil,
     state = false
 }
-
 -- Register for relevant events
 priceUpdateFrame:RegisterEvent("COMMODITY_PRICE_UPDATED")
 priceUpdateFrame:RegisterEvent("COMMODITY_PRICE_UNAVAILABLE")
@@ -60,7 +59,7 @@ local function PriceHandler(self, event, ...)
                     end,20)
                 
                     -- Set a maximum wait time (optional)
-                    C_Timer.After(3, function()
+                    C_Timer.After(0.3, function()
                         if throttleCheck and throttleCheck.Cancel then
                             -- Handle timeout - could reset state here
                             -- if ns.log_table.throttle_check then DevTool:AddData(GetTime(), "Throttle Timeout") end
@@ -72,7 +71,7 @@ local function PriceHandler(self, event, ...)
                         end
                     end)
                 else
-                    C_Timer.After(0.1, function()
+                    C_Timer.After(0.02, function()
                         C_AuctionHouse.ConfirmCommoditiesPurchase(pendingPurchase.itemID, pendingPurchase.quantity)
                         ns.currentItemId:unlock()
                         ns.tqb:unlock()

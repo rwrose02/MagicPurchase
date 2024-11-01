@@ -33,5 +33,11 @@ function AHFrame:clickFavoriteButton()
     end
     return false
 end
+---Gives the current item ID from the Auction House Commodity Frame
+---@return integer? -- itemID
+function AHFrame:GetCurrentItemID()
+    local x = AuctionHouseFrame.CommoditiesBuyFrame:GetItemID()
+    return x
+end
 
 ns.AHFrame = AHFrame

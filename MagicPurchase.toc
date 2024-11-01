@@ -6,18 +6,21 @@
 ## SavedVariables: Magic_SavedVars
 
 SavedVars.lua
-
+Source\Modules\FrameFactory.lua
 Source\Mixins\StateManager.lua
+Source\Modules\EventSystem.lua
 Source\State.lua
 
 Source\Util\UtilityFuncs.lua
 Source\Util\PurchaseHelper.lua
 Source\Util\AHFrameUtil.lua
 
-Source\Modules\SafePriceFrame.lua
+Source\Class\SafeFrameClass.lua
 Source\Class\ResultsMonitorClass.lua
 Source\Class\PurchaseFrameClass.lua
+Source\Class\TraceFrame.lua
 Source\Modules\ExposedMacro.lua
 
 Source\Core.lua
 Source\Setup\Binding.lua
+Source\Modules\Debug.lua

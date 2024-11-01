@@ -7,12 +7,10 @@ function ns.util.AggregateCommoditySearchResultsByMaxPrice(itemID, maxPrice)
     -- if ns.debug_table.agg == true then print("aggcom start") end
     local totalQuantity = 0
     local numresults = C_AuctionHouse.GetNumCommoditySearchResults(itemID)
-    -- DevTool:AddData(numresults, "numresults")
     for index = 1, numresults do
         local searchResult = C_AuctionHouse.GetCommoditySearchResultInfo(itemID, index)
-        -- DevTool:AddData(searchResult, "searchResult")
         if searchResult == nil then
-            -- if ns.debug_table.agg == true then print("aggcom nil result") end
+            if ns.debug_table.agg == true then print("aggcom nil result") end
             return -1
         end
         if searchResult.unitPrice >= maxPrice then
@@ -20,16 +18,10 @@ function ns.util.AggregateCommoditySearchResultsByMaxPrice(itemID, maxPrice)
         end
         totalQuantity = totalQuantity + searchResult.quantity
     end
-    -- if ns.debug_table.agg == true then print("aggcom found : " .. totalQuantity) end
+    if ns.debug_table.agg == true then print("aggcom found : " .. totalQuantity) end
     return totalQuantity
 end
 
----Gives the current item ID from the Auction House Commodity Frame
----@return integer? -- itemID
-function ns.util.GetCurrentItemID()
-    local x = AuctionHouseFrame.CommoditiesBuyFrame:GetItemID()
-    return x
-end
 function ns.util.GetSafePrice(item_id)
     return ns.safe_table[item_id]
 end
@@ -74,4 +66,28 @@ end
 function ns.util.ExportAddonTable()
     local ns = ns
     DevTool:AddData(ns, "ns")
+end
+---comment
+---@param itemID any
+---@param callback any
+function ns.util.GetReagentItemInfo(itemID, callback)
+    if itemID == nil or itemID <= 0 then
+        return
+    end
+    local item = Item:CreateFromItemID(itemID)
+    
+    item:ContinueOnItemLoad(function()
+        local itemName = item:GetItemName()
+        local quality = C_TradeSkillUI.GetItemReagentQualityByItemInfo(itemID)
+        local qualityIcon = quality and C_Texture.GetCraftingReagentQualityChatIcon(quality) or ""
+        
+        if callback then
+            callback({
+                name = itemName,
+                quality = quality,
+                qualityIcon = qualityIcon,
+                fullName = string.format("%s %s", itemName, qualityIcon)
+            })
+        end
+    end)
 end
