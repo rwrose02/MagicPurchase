@@ -138,6 +138,7 @@ end
 function TraceFrame:AUCTION_HOUSE_THROTTLED_MESSAGE_SENT(...)
     self.lastsent = self.throttle_sent
     self.throttle_sent = GetTime()
+
     self.cums2sTime = self.s2sTime + (GetTime() - self.lastsent)
     -- self.waitingForAnswer = true
     self.r2throtVal:SetText(self.throttle_sent - self.rttReadyTime)

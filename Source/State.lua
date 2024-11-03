@@ -12,9 +12,9 @@ local safe_price = ns.StateManager:new()
 safe_price:setValue(ns.def_safe_price)
 ns.safe_price = safe_price
 ns.safe_table = ns.safe_table or {}
-ns.util = {}
+ns.util = {} or ns.util
 ns.tqk = 1
-ns.Trace = true -- module control
+ns.Trace = false -- module control
 ns.debug = true
 --TODO: Refine debug_table to function on module basis 
 ns.debug_table = {

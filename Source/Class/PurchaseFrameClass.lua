@@ -34,7 +34,7 @@ function PurchaseFrame.new()
         end
         self[config.key .. "Text"] = label
         previousLabel = label
-        DevTool:AddData(config.key .. "Text", "label text")
+        -- DevTool:AddData(config.key .. "Text", "label text")
     end
 
     -- Create buttons with consistent configuration
@@ -102,7 +102,7 @@ function PurchaseFrame.new()
         local value = tonumber(self:GetText())
         if value then
             -- Clamp value between 0.1 and 9.9
-            value = math.max(0.05, math.min(9.9, value))
+            value = math.max(0.001, math.min(9.9, value))
             -- Round to one decimal place
             self:SetText(tostring(value))
             -- Update both base and bulk delays
@@ -369,7 +369,7 @@ function PurchaseFrame:OnConfirmClick()
     self.confirmButton:SetEnabled(false)
     self.confirmButton:SetText("Confirming...")
     ns.InitiatePurchase(ns.currentItemId:getValue(), ns.tqb:getValue(), ns.safe_price:getValue())
-    self.confirmSettings.lastConfirmTime = GetTime()
+    ns.TimingInstance:AddKeyExec("PURCHASE_FRAME_HANDED_OFF", ns.TimingInstance:PreciseTime())
 end
 
 --[INTERNAL SETUP]

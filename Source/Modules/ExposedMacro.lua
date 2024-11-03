@@ -21,3 +21,9 @@ end
 function PurchaseConfirmBind()
     ns.purchaseFrame.confirmButton:Click()
 end
+function ExportbEvents()
+    ns.TimingInstance:showCSV(ns.TimingInstance.bEvents)
+end
+function ExportKeyEvents()
+    ns.TimingInstance:showCSV(ns.TimingInstance.keyEvents)
+end

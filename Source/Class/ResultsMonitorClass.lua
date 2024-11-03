@@ -48,14 +48,16 @@ function ResultsMonitor:GetIgnoreState()
 end
 
 -- Event handler for commodity search results
-function ResultsMonitor:COMMODITY_SEARCH_RESULTS_RECEIVED(...)
+function ResultsMonitor:COMMODITY_SEARCH_RESULTS_RECEIVED(...) 
+    ns.TimingInstance:AddKeyExec("RESULTS_MONITOR_CALC", ns.TimingInstance:PreciseTime())
     local totalQuantity = ns.util.AggregateCommoditySearchResultsByMaxPrice(ns.currentItemId:getValue(), ns.safe_price:getValue())
     local set_tqb = ns.tqb:setValue(totalQuantity)
-    if not set_tqb and ns.log_table.results_frame then
-        DevTool:AddData(ns.tqb, "MONITOR FAILED TO UPDATE")
-    elseif ns.log_table.results_frame then
-        DevTool:AddData(ns.tqb, "MONITOR SUCCESSFULLY SET")
-    end
+    ns.TimingInstance:AddKeyExec("RESULTS_MONITOR_FINISHED_CALC", ns.TimingInstance:PreciseTime())
+    -- if not set_tqb and ns.log_table.results_frame then
+        -- DevTool:AddData(ns.tqb, "MONITOR FAILED TO UPDATE")
+    -- elseif ns.log_table.results_frame then
+        -- DevTool:AddData(ns.tqb, "MONITOR SUCCESSFULLY SET")
+    -- end
 end
 
 -- Initialization function to register and set up events

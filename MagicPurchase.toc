@@ -9,10 +9,13 @@ SavedVars.lua
 Source\Modules\FrameFactory.lua
 Source\Mixins\StateManager.lua
 Source\Modules\EventSystem.lua
+Source\Util\TextExport.lua
+
+Source\Class\TimingManagerClass.lua
 Source\State.lua
 
 Source\Util\UtilityFuncs.lua
-Source\Util\PurchaseHelper.lua
+Source\Util\PriceHandler.lua
 Source\Util\AHFrameUtil.lua
 
 Source\Class\SafeFrameClass.lua
